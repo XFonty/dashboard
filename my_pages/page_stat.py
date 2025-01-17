@@ -19,9 +19,6 @@ def show(nb_voitures, bornes_completes, bornes, carte_vehicules_bornes_reg, cart
         bornes (pd.DataFrame): Données des bornes de recharge par commune, département et région.
     """
 
-    # years = ["Toutes les années"] + \
-    #     sorted(nb_voitures['annee'].unique())
-
     st.title("Statistiques descriptives")
     st.write("Bienvenue sur la page des statistiques descriptives.")
 
@@ -53,7 +50,6 @@ def show(nb_voitures, bornes_completes, bornes, carte_vehicules_bornes_reg, cart
     # Appliquer le filtre par année
     if selected_year != "Toutes les années":
         filtered_data = filtered_data[filtered_data['annee'] == selected_year] # Données filtrées pour véhicules
-        filtered_data_bornes = filtered_data_bornes[filtered_data_bornes['Annee'] == selected_year] # Pour aménageurs et opérateurs
 
     # Appliquer le filtre par région, département ou commune
     if granularite == "Région" and selected_option != "Toutes les régions":
@@ -488,7 +484,7 @@ def show(nb_voitures, bornes_completes, bornes, carte_vehicules_bornes_reg, cart
             filtered_data_bornes = filtered_data_bornes[filtered_data_bornes["nom_departement"] == selected_option]
         elif granularite == "Commune" and selected_option != "Toutes les communes":
             filtered_data_bornes = filtered_data_bornes[filtered_data_bornes["commune"] == selected_option]
-            
+
         # ---- 2. Top 10 des Aménageurs et Opérateurs par nombre de bornes ----
         top_amenageurs = (
             filtered_data_bornes.groupby('nom_amenageur')['nb_borne']
